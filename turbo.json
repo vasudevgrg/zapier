@@ -16,6 +16,12 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/db": ["packages/db/src"]
     }
+  }
   }
 }
