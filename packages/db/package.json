@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^17.4.1",
+    "pg": "^8.20.0",
     "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {

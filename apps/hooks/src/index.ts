@@ -1,6 +1,5 @@
 import express, { Request, Response} from "express";
-import { sequelize } from "./config/database-connection";
-import { OutboxMessage, ZapRun } from "@repo/db";
+import { OutboxMessage, ZapRun, sequelize } from "@repo/db";
 
 
 const app = express();
