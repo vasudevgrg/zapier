@@ -1,4 +1,4 @@
-import { OutboxMessage, sequelize } from "@repo/db";
+import {  sequelize } from "@repo/db";
 import { RabbitMQConnection } from "./rabbitmq/rabbitmq-connection.js";
 
 async function main() {

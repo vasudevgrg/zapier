@@ -1,6 +1,6 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
-  "ui": "tui",
+  "ui": "stream",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
@@ -16,12 +16,6 @@
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@repo/db": ["packages/db/src"]
     }
-  }
   }
 }
