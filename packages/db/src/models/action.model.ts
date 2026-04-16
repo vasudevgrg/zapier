@@ -9,6 +9,9 @@ export class Action extends Model {
     @Column
     id!: string
 
+    @Column
+    order!: number
+
     @ForeignKey(()=> AvailableAction)
     @Column
     action_id!: string
