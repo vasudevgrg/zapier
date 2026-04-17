@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { sequelize } from "@repo/db";
 import {router as UserROuter }  from './router/user.router.js'
+import {router as ZapRouter }  from './router/zap.router.js'
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 
 
 app.use('/user',UserROuter )
+app.use('/zap',ZapRouter )
 
 async function startServer() {
   await sequelize.authenticate();

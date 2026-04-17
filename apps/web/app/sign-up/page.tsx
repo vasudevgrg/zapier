@@ -1,3 +1,5 @@
+'use client'
+
 import { Check } from "lucide-react";
 import SignUpGoogle from "../components/button/SignUpGoogle";
 import Input from "../components/signUp/Input";

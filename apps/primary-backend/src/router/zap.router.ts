@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from "express";
 import { signInObject, signUpObject } from "../types/user.types.js";
-import { User, Zap } from "@repo/db";
+import { User, Zap, ZapRun } from "@repo/db";
 import jwt from "jsonwebtoken";
 
 export const router = Router();
@@ -14,5 +14,7 @@ router.post('/', async (req, res) => {
 })
 
 router.get('/:zap_id', async (req, res) => {
-    
+    return  await Zap.findOne({where: {id : req.params.zap_id}, include: {
+        model: ZapRun, as: 'zap_runs'
+    }});
 })
