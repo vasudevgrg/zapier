@@ -11,6 +11,9 @@ import { useState } from "react";
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   async function signUpUser(email, password) {
     await axios.post('http://localhost:8081/user/signup', {
@@ -58,7 +61,7 @@ export default function SignUp() {
 
           <Input label=" Work email*" />
           <div className="flex">
-            <Input label="First Name*" />
+            <Input label="First Name*" onChange={e=> } />
             <Input label="Last Name*" />
           </div>
 
@@ -66,7 +69,7 @@ export default function SignUp() {
             By signing up, you agree to Zapier's <u>terms of service</u> and{" "}
             <u> privacy policy.</u>
           </div>
-          <PrimaryButton text="SignUp for free " size="big" />
+          <PrimaryButton text="SignUp for free " size="big" onClick={()=> signUpUser(email, password)} />
         </div>
       </div>
     </>

@@ -15,6 +15,9 @@ export class Zap extends Model {
     @ForeignKey(()=> User)
     user_id!: string
 
+    @Column
+    name!: string
+
     @BelongsTo(()=> User) 
     user!: User
 

@@ -13,6 +13,7 @@ export default function Zap() {
       const res = await axios.get("http://localhost:8081/zap", {
         params: { user_id: 1 },
       });
+      console.log('res: ', res);
       setZaps(res.data);
     }
     loadZaps();
@@ -54,7 +55,7 @@ export default function Zap() {
           <tbody>
             {zaps.map((zap) => (
               <tr>
-                <td>{zap.meta_data.apps}</td>
+                {/* <td>{zap.meta_data.apps}</td> */}
                 <td>/Vasudev.folder</td>
                 <td>{zap.updated_at}</td>
                 <td></td>

@@ -13,6 +13,18 @@ router.post('/', async (req, res) => {
     return res.send({message:'zap created successfully'})
 })
 
+router.get('/',async  (req, res) =>{
+    const user_id = req.query.user_id;
+    console.log('user_id: ', user_id);
+    if(!user_id) {
+        throw new Error('user id not found')
+    }
+    const zaps = await Zap.findAll({
+        where: {user_id}
+    })
+    return res.send(zaps)
+})
+
 router.get('/:zap_id', async (req, res) => {
     return  await Zap.findOne({where: {id : req.params.zap_id}, include: {
         model: ZapRun, as: 'zap_runs'
