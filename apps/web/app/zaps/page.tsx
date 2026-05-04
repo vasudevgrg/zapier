@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronsUpDown, Plus, Trash } from "lucide-react";
-import Appbar from "../components/Appbar/Appbar";
+import Appbar from "../../components/Appbar/Appbar";
 import axios from "axios";
 import { useEffect, useState } from "react";
 

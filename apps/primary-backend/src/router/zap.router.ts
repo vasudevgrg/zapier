@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from "express";
 import { signInObject, signUpObject } from "../types/user.types.js";
-import { User, Zap, ZapRun } from "@repo/db";
+import { AvailableTrigger, User, Zap, ZapRun } from "@repo/db";
 import jwt from "jsonwebtoken";
 
 export const router = Router();
@@ -29,4 +29,12 @@ router.get('/:zap_id', async (req, res) => {
     return  await Zap.findOne({where: {id : req.params.zap_id}, include: {
         model: ZapRun, as: 'zap_runs'
     }});
+})
+
+router.get('/available', async (req, res) =>{
+    return await AvailableTrigger.findAll();
+})
+
+router.get('/available', async (req, res) =>{
+    return await AvailableTrigger.findAll();
 })

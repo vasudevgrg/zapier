@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 export const router = Router();
 
 router.post("/signup", async (req: Request, res: Response) => {
+  console.log('req.body: ', req.body);
   const parsedData = signUpObject.safeParse(req.body);
 
   if (!parsedData.success) {
@@ -13,7 +14,7 @@ router.post("/signup", async (req: Request, res: Response) => {
   }
 
   await User.create(req.body);
-  return {message: 'User created successfully'}
+   res.send({message: 'User created successfully'})
 });
 
 router.post("/signin", async (req, res) => {

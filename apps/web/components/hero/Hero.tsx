@@ -1,7 +1,7 @@
 import React from "react";
 import PrimaryButton from "../button/PrimaryButton";
 import Image from "next/image";
-import heroImage from "../../static/hero.avif";
+import heroImage from '../../app/static/hero.avif';
 import SignUpGoogle from "../button/SignUpGoogle";
 
 const Hero = () => {

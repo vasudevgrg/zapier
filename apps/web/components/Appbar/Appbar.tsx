@@ -1,9 +1,13 @@
+'use client'
+
 import React from "react";
 import { Option } from "./Option";
 import LinkButton from "../button/LinkButton";
 import PrimaryButton from "../button/PrimaryButton";
+import { useRouter } from "next/navigation";
 
-const Appbar = ({ page = 'home' }: { page?: string}) => {
+const Appbar = ({ page = 'home', isLoggedIn }: { page?: string, isLoggedIn?: boolean}) => {
+  const router = useRouter()
   return (
     <div className="flex flex-row justify-between bg-grey-600 sticky m-auto w-10/11 ">
       <div className="flex items-center justify-center">
@@ -18,7 +22,7 @@ const Appbar = ({ page = 'home' }: { page?: string}) => {
       </div>
 
       <div>
-        <LinkButton text="contact sales" onClick={() => {}} />
+        <LinkButton text="contact sales" onClick={() => router.push('/zaps')} />
         <LinkButton text="Login" onClick={() => {}} />
         <PrimaryButton text="signup" />
       </div>
