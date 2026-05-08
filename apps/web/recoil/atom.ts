@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom } from "./store";
 
 export const userAtom = atom({
     key: 'user',
@@ -9,7 +9,23 @@ export const userAtom = atom({
     }
 })
 
-export const countZap = atom({
-    key:'create_zap',
-    default: [1]
+export const OpenZapModal = atom({
+    key: 'open_modal',
+    default: false
+})
+
+export const ZapListState = atom<{
+    app?: string,
+    metadata?: Record<string, unknown>,
+    type: string
+}[]>({
+    key:'zap_list',
+    default: [{
+        type: 'trigger'
+    }]
+})
+
+ export const CurrentZapIndex = atom({
+    key: 'current_zap_index',
+    default: 0
 })

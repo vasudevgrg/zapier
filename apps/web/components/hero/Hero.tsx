@@ -1,7 +1,7 @@
 import React from "react";
 import PrimaryButton from "../button/PrimaryButton";
 import Image from "next/image";
-import heroImage from '../../app/static/hero.avif';
+// import heroImage from '../../app/static/hero.avif';
 import SignUpGoogle from "../button/SignUpGoogle";
 
 const Hero = () => {
@@ -20,7 +20,7 @@ const Hero = () => {
             <SignUpGoogle text="Sign Up with Google"/>
           </div>
         </div>
-       <Image src={heroImage} alt="Hero" width={500} height={450} />
+       {/* <Image src={heroImage} alt="Hero" width={500} height={450} /> */}
       </div>
 
   );

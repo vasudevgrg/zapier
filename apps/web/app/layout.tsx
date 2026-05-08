@@ -1,4 +1,4 @@
-
+import StateProvider from "../components/StateProvider";
 import "./globals.css";
 
 
@@ -10,7 +10,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <StateProvider>{children}</StateProvider>
+        
       </body>
     </html>
   );

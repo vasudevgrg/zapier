@@ -7,9 +7,9 @@ export const router = Router();
 
 // get all zaps , get particular zap, create zap
 router.post('/', async (req, res) => {
-    const {zapier, actions, user_id} = req.body;
+    const {trigger, actions, user_id, name} = req.body;
 
-    await Zap.create({user_id, zapier, actions});
+    await Zap.create({user_id, trigger, actions, name});
     return res.send({message:'zap created successfully'})
 })
 
