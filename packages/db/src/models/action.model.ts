@@ -16,6 +16,13 @@ export class Action extends Model {
     @Column
     action_id!: string
 
+    @Column({
+        type: DataType.JSONB,
+        allowNull: true,
+        field: "meta_data",
+    })
+    metadata!: Record<string, any>
+
     @ForeignKey(()=> Zap)
     @Column
     zap_id!: string

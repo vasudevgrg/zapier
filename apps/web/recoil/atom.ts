@@ -15,6 +15,7 @@ export const OpenZapModal = atom({
 })
 
 export const ZapListState = atom<{
+    id?: number,
     app?: string,
     metadata?: Record<string, unknown>,
     type: string

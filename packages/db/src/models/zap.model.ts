@@ -15,18 +15,15 @@ export class Zap extends Model {
     @ForeignKey(()=> User)
     user_id!: string
 
-    @Column
-    name!: string
-
     @BelongsTo(()=> User) 
     user!: User
 
-    @HasOne( ()=> Trigger, 'zap_id')
+    @HasOne(() => Trigger, { foreignKey: "zap_id", as: "trigger" })
     trigger!: Trigger
 
-    @HasMany(()=> Action, 'zap_id')
+    @HasMany(() => Action, { foreignKey: "zap_id", as: "actions" })
     actions!: Action[]
 
-    @HasMany(()=> ZapRun,'zap_id')
+    @HasMany(() => ZapRun, { foreignKey: "zap_id", as: "zap_runs" })
     zap_runs!: ZapRun[]
 }

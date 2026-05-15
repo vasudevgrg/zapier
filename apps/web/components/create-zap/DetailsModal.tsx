@@ -1,32 +1,54 @@
+"use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import { X } from "lucide-react";
 import Input from "../signUp/Input";
-
-type ModalItem = {
-  image: string;
-  name: string;
-  id: number;
-};
 
 const DetailsModal = ({
   open = false,
   setOpen,
   type,
   updateZap,
+  actionId,
   index,
 }: {
   open?: boolean;
   index: number;
+  actionId?: number;
   updateZap?: (idx: number, payload: any) => void;
-  addZap: (zap: any) => void;
   setOpen: (open: boolean) => void;
   type: "solana" | "mail";
 }) => {
-  const [solanaId, setSolanaId] = useState();
-  const [solanaAmount, setSolanaAmount] = useState();
-  const [mailId, setMailId] = useState()
-  const [mailBody, setMailBody] = useState()
+  const [solanaId, setSolanaId] = useState("");
+  const [solanaAmount, setSolanaAmount] = useState("");
+  const [mailId, setMailId] = useState("");
+  const [mailBody, setMailBody] = useState("");
+
+  const isSolanaReady = Boolean(solanaId.trim() && solanaAmount.trim());
+  const isMailReady = Boolean(mailId.trim() && mailBody.trim());
+  const canSubmit = type === "solana" ? isSolanaReady : isMailReady;
+
+  function handleSubmit() {
+    if (!actionId || !canSubmit) {
+      return;
+    }
+
+    updateZap?.(index, {
+      id: actionId,
+      type: "action",
+      metadata:
+        type == "solana"
+          ? {
+              solana_id: solanaId.trim(),
+              amount: Number(solanaAmount),
+            }
+          : {
+              mail_id: mailId.trim(),
+              body: mailBody.trim(),
+            },
+    });
+
+    setOpen(false);
+  }
 
   return (
     <>
@@ -45,16 +67,33 @@ const DetailsModal = ({
           </h2>
           {type == "solana" ? (
             <div>
-              <Input label="Solana Id" onChange={setSolanaId} />
+              <Input
+                label="Solana Id"
+                onChange={(e) => setSolanaId(e.target.value)}
+              />
 
-              <Input label="Amount" onChange={setSolanaAmount}/>
+              <Input
+                label="Amount"
+                type="number"
+                onChange={(e) => setSolanaAmount(e.target.value)}
+              />
             </div>
           ) : (
             <div>
-              <Input label="To" onChange={setMailId}/>
-              <Input label="Body" onChange={setMailBody}/>
+              <Input label="To" onChange={(e) => setMailId(e.target.value)} />
+              <Input
+                label="Body"
+                onChange={(e) => setMailBody(e.target.value)}
+              />
             </div>
           )}
+          <button
+            className="border p-2 mt-4 font-bold bg-gray-300"
+            onClick={handleSubmit}
+            disabled={!canSubmit}
+          >
+            Add Action
+          </button>
         </div>
       </div>
     </>

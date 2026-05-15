@@ -3,10 +3,12 @@ import React, { useState } from "react";
 import SignUpGoogle from "../../../components/button/SignUpGoogle";
 import Input from "../../../components/signUp/Input";
 import PrimaryButton from "../../../components/button/PrimaryButton";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const router = useRouter()
 
   async function loginUser(email, password) {
     try {

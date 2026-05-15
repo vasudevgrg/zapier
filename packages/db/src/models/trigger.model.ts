@@ -25,8 +25,9 @@ export class Trigger extends Model {
   @Column({
     type: DataType.JSONB,
     allowNull: true,
+    field: "meta_data",
   })
-  meta_data!: Record<string, any>;
+  metadata!: Record<string, any>;
 
   @ForeignKey(() => Zap)
   @Column
@@ -35,6 +36,6 @@ export class Trigger extends Model {
   @BelongsTo(() => Zap, "zap_id")
   zap!: Zap;
 
-  @BelongsTo(() => AvailableTrigger, "action_id")
+  @BelongsTo(() => AvailableTrigger, "trigger_id")
   available_trigger!: AvailableTrigger;
 }

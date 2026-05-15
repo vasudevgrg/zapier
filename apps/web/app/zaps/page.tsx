@@ -4,16 +4,18 @@ import { ChevronsUpDown, Plus, Trash } from "lucide-react";
 import Appbar from "../../components/Appbar/Appbar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Zap() {
   const [zaps, setZaps] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     async function loadZaps() {
       const res = await axios.get("http://localhost:8081/zap", {
         params: { user_id: 1 },
       });
-      console.log('res: ', res);
+      console.log("res: ", res.data);
       setZaps(res.data);
     }
     loadZaps();
@@ -29,7 +31,10 @@ export default function Zap() {
               <Trash />
               Trash
             </div>
-            <button className="flex bg-purple-800 text-white p-2 rounded-2">
+            <button
+              className="flex bg-purple-800 text-white p-2 rounded-2"
+              onClick={() => router.push("/zaps/create-zap")}
+            >
               {" "}
               <Plus />
               Create
@@ -38,28 +43,39 @@ export default function Zap() {
         </div>
 
         <table className="table-auto">
-          <thead>
-            <tr>
-              <th className="flex gap-3">
-                Name
-                <ChevronsUpDown />{" "}
-              </th>
+          <thead >
+            <tr className="p-3">
+              
               <th>Apps</th>
-              <th>Location</th>
               <th>Last Modified</th>
-              <th>Status</th>
-              <th>Owner</th>
               <th> </th>
             </tr>
           </thead>
           <tbody>
             {zaps.map((zap) => (
-              <tr>
-                {/* <td>{zap.meta_data.apps}</td> */}
-                <td>/Vasudev.folder</td>
-                <td>{zap.updated_at}</td>
-                <td></td>
+              <tr className="flex p-3">
+                <td className="flex">
+                  <img
+                      key={zap.id}
+                      src={zap?.trigger?.available_trigger.image}
+                      alt=""
+                      className="h-10"
+                    />
+                    {
+                      zap.actions.map(action => (
+                        <img
+                      key={zap.id}
+                      src={action.available_action.image}
+                      alt=""
+                      className="h-10"
+                    />
+                      ))
+                    }
+                </td>
+                <td>{zap.updatedAt}</td>
+                <td> 'ss'</td>
               </tr>
+              
             ))}
           </tbody>
         </table>

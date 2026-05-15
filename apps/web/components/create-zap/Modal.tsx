@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
+import DetailsModal from "./DetailsModal";
 
 type ModalItem = {
   image: string;
@@ -18,24 +19,16 @@ const Modal = ({
   open?: boolean;
   index: number;
   updateZap?: (idx: number, payload: any) => void;
-  addZap: (zap: any) => void;
   setOpen: (open: boolean) => void;
   data?: {
     actions: ModalItem[];
     triggers: ModalItem[];
   };
 }) => {
-  const [payload, setPayload] = useState({});
+  const [openDetail, setOpenDetail] = useState(false);
+  const [actionType, setActionType] = useState<"solana" | "mail">("mail");
+  const [actionId, setActionId] = useState<number>();
 
-  function handleClick(payload) {
-    setPayload((e) => {
-      return {
-        ...payload,
-        e,
-      };
-    });
-    updateZap(index, payload);
-  }
   return (
     <>
       <div
@@ -56,13 +49,12 @@ const Modal = ({
                 <div
                   className="flex flex-row justify-between p-3 m-auto gap-2"
                   key={val.name}
-                  onClick={() =>
-                    handleClick(
-                      index === 0
-                        ? { action_id: val.id }
-                        : { trigger_id: val.id },
-                    )
-                  }
+                  onClick={() => {
+                    setActionType(val.name as "solana" | "mail");
+                    setActionId(val.id);
+                    setOpen(false);
+                    setOpenDetail(true);
+                  }}
                 >
                   <Image
                     src={val?.image}
@@ -77,11 +69,16 @@ const Modal = ({
                 <div
                   className="flex flex-row justify-between p-3 m-auto gap-2"
                   key={val.name}
-                  onClick={() =>
-                    updateZap(index, {
-                      trigger_id: val.id,
-                    })
-                  }
+                  onClick={() => {
+                    updateZap?.(index, {
+                      id: val.id,
+                      type: "trigger",
+                      metadata: {
+                        url: "http://localhost:3000",
+                      },
+                    });
+                    setOpen(false);
+                  }}
                 >
                   <Image
                     src={val?.image}
@@ -94,6 +91,14 @@ const Modal = ({
               ))}
         </div>
       </div>
+      <DetailsModal
+        open={openDetail}
+        type={actionType}
+        setOpen={setOpenDetail}
+        updateZap={updateZap}
+        index={index}
+        actionId={actionId}
+      />
     </>
   );
 };

@@ -1,13 +1,19 @@
 import React from "react";
-import Appbar from "../Appbar/Appbar";
 
-const Input = ({ label, onChange }: {label: string, onChange?: (e)=> void}) => {
+const Input = ({
+  label,
+  onChange,
+  type = "text",
+}: {
+  label: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+}) => {
   return (
     <>
-    
       <div className="flex flex-col m-2 ">
         <label className="font-bold">{label}</label>
-        <input className="border h-[50px]" onChange={onChange} />
+        <input className="border h-[50px]" type={type} onChange={onChange} />
       </div>
     </>
   );
