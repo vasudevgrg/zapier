@@ -7,6 +7,7 @@ async function main() {
     const rabbitmq = new RabbitMQConnection();
     await rabbitmq.connect()
     await rabbitmq.createChannel()
+    await rabbitmq.assertQueue()
 
     await rabbitmq.consumeMessage()
 

@@ -31,8 +31,7 @@ router.post("/signin", async (req, res) => {
   if (user && user.password != req.body.password) {
     throw new Error("password is wrong");
   }
-  const token = jwt.sign(user.id, "secret");
+  const token = jwt.sign(String(user.id), "secret");
 
   return res.send({ token });
 });
-

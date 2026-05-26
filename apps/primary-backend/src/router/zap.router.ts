@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export const router = Router();
 
 type ZapActionPayload = {
-  id: string;
+  id: number;
   metadata?: Record<string, unknown>;
 };
 
@@ -14,11 +14,11 @@ type ZapActionPayload = {
 router.post("/", async (req, res) => {
   const { trigger, actions = [], user_id } = req.body as {
     trigger: {
-      id: string;
+      id: number;
       metadata?: Record<string, unknown>;
     };
     actions?: ZapActionPayload[];
-    user_id: string;
+    user_id: number;
   };
   console.log("actions: ", actions);
   console.log("trigger: ", trigger);
@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
         }),
       ),
     );
-    return res.send({ message: "zap created successfully" });
+    return res.send({ message: "zap created successfully", webhook: 'http://localhost:8080/' });
   } catch (error) {
     console.log("error: ", error);
     return res.status(500).send({ message: "failed to create zap" });
@@ -54,9 +54,9 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const user_id = req.query.user_id;
+  const user_id = Number(req.query.user_id);
   console.log("user_id: ", user_id);
-  if (!user_id) {
+  if (!Number.isInteger(user_id)) {
     throw new Error("user id not found");
   }
   const zaps = await Zap.findAll({
@@ -88,8 +88,14 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:zap_id", async (req, res) => {
+  const zap_id = Number(req.params.zap_id);
+
+  if (!Number.isInteger(zap_id)) {
+    return res.status(400).send({ message: "invalid zap id" });
+  }
+
   return await Zap.findOne({
-    where: { id: req.params.zap_id },
+    where: { id: zap_id },
     include: {
       model: ZapRun,
       as: "zap_runs",

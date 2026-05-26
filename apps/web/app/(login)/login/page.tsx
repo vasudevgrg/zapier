@@ -4,18 +4,18 @@ import SignUpGoogle from "../../../components/button/SignUpGoogle";
 import Input from "../../../components/signUp/Input";
 import PrimaryButton from "../../../components/button/PrimaryButton";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter()
 
-  async function loginUser(email, password) {
+  async function loginUser(email: string, password: string) {
     try {
-      const res= await axios.post("http://localhost:8081/user/signup", {
+      const res= await axios.post("http://localhost:8081/user/signin", {
         email,
         password,
-        name: firstName + " " + lastName,
       });
       console.log('successful user created', res);
       router.push('/zaps')
@@ -45,9 +45,9 @@ const Login = () => {
             <hr className="flex-1 h-[2px] bg-gray-400 border-none" />
           </div>
 
-          <Input label="email"/>
-          <Input label="password"/>
-          <PrimaryButton text="Continue" size="big"/>
+          <Input label="email" onChange={(e) => setEmail(e.target.value)} />
+          <Input label="password" type="password" onChange={(e) => setPassword(e.target.value)} />
+          <PrimaryButton text="Continue" size="big" onClick={() => loginUser(email, password)} />
     </div>
   </div>
   </>;

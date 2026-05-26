@@ -9,6 +9,12 @@ type ModalItem = {
   id: number;
 };
 
+type ZapStep = {
+  id?: number;
+  type: string;
+  metadata?: Record<string, unknown>;
+};
+
 const Modal = ({
   open = false,
   setOpen,
@@ -18,7 +24,7 @@ const Modal = ({
 }: {
   open?: boolean;
   index: number;
-  updateZap?: (idx: number, payload: any) => void;
+  updateZap?: (idx: number, payload: ZapStep) => void;
   setOpen: (open: boolean) => void;
   data?: {
     actions: ModalItem[];

@@ -1,31 +1,31 @@
-import { BelongsTo, Column, DataType, Default, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { AvailableAction } from "./available-action.model";
 import { Zap } from "./zap.model";
 
 @Table
 export class Action extends Model {
-    @Default(DataType.UUIDV4)
+    @AutoIncrement
     @PrimaryKey
-    @Column
-    id!: string
+    @Column(DataType.INTEGER)
+    id!: number
 
     @Column
     order!: number
 
     @ForeignKey(()=> AvailableAction)
     @Column
-    action_id!: string
+    action_id!: number
 
     @Column({
         type: DataType.JSONB,
         allowNull: true,
         field: "meta_data",
     })
-    metadata!: Record<string, any>
+    metadata!: Record<string, unknown>
 
     @ForeignKey(()=> Zap)
     @Column
-    zap_id!: string
+    zap_id!: number
 
     @BelongsTo(()=> Zap,'zap_id')
     zap!: Zap

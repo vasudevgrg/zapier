@@ -6,7 +6,6 @@ import Modal from "../../../components/create-zap/Modal";
 import axios from "axios";
 import { CurrentZapIndex, OpenZapModal, ZapListState } from "../../../recoil/atom";
 import { useAtomState, useSetAtom } from "../../../recoil/store";
-import { useRouter } from "next/navigation";
 
 type ZapStep = {
   id?: number;
@@ -25,7 +24,6 @@ export default function Zap() {
     triggers: [],
   });
   const setOpenModal = useSetAtom(OpenZapModal);
-  const router = useRouter()
 
 
   function adddZap() {
@@ -42,9 +40,7 @@ export default function Zap() {
     setZaps((prev) =>
       prev.map((zap, index) => (index === idx ? payload : zap)),
     );
-    console.log('zaps', zaps)
     setPublishMessage("");
-    router.push('/zaps')
   }
 
   async function fetchActions() {
@@ -71,6 +67,7 @@ export default function Zap() {
 
     setIsPublishing(true);
     setPublishMessage("");
+    console.log('zaps', zaps);
 
     try {
       await axios.post("http://localhost:8081/zap", {
@@ -135,16 +132,3 @@ export default function Zap() {
     </>
   );
 }
-
-// 'use client';
-
-// import { useAtomValue } from '../../../recoil/store';
-// import { OpenZapModal } from '../../../recoil/atom';
-
-// export default function Zap() {
-//   console.log('Rendering Zap');
-
-//   const open = useAtomValue(OpenZapModal);
-
-//   return <div>Test {open ? "open" : "closed"}</div>;
-// }

@@ -17,7 +17,7 @@ export default function SignUp() {
 
   const router = useRouter()
 
-  async function signUpUser(email, password) {
+  async function signUpUser(email: string, password: string) {
     try {
       const res= await axios.post("http://localhost:8081/user/signup", {
         email,

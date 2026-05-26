@@ -1,13 +1,13 @@
-import { Column, DataType, Default, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { Action } from "./action.model";
 import { Trigger } from "./trigger.model";
 
 @Table
 export class AvailableTrigger extends Model {
-    @Default(DataType.UUIDV4)
+    @AutoIncrement
     @PrimaryKey
-    @Column
-    id!: string
+    @Column(DataType.INTEGER)
+    id!: number
 
     @Column
     name!: string

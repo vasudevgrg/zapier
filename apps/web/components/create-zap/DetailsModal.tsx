@@ -3,6 +3,12 @@ import React, { useState } from "react";
 import { X } from "lucide-react";
 import Input from "../signUp/Input";
 
+type ZapStep = {
+  id?: number;
+  type: string;
+  metadata?: Record<string, unknown>;
+};
+
 const DetailsModal = ({
   open = false,
   setOpen,
@@ -14,7 +20,7 @@ const DetailsModal = ({
   open?: boolean;
   index: number;
   actionId?: number;
-  updateZap?: (idx: number, payload: any) => void;
+  updateZap?: (idx: number, payload: ZapStep) => void;
   setOpen: (open: boolean) => void;
   type: "solana" | "mail";
 }) => {

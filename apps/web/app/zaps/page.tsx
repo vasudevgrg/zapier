@@ -6,8 +6,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+type ZapListItem = {
+  id: number;
+  updatedAt: string;
+  trigger?: {
+    available_trigger?: {
+      image: string;
+    };
+  };
+  actions: {
+    id: number;
+    available_action: {
+      image: string;
+    };
+  }[];
+};
+
 export default function Zap() {
-  const [zaps, setZaps] = useState([]);
+  const [zaps, setZaps] = useState<ZapListItem[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -55,16 +71,18 @@ export default function Zap() {
             {zaps.map((zap) => (
               <tr className="flex p-3">
                 <td className="flex">
-                  <img
+                  {zap.trigger?.available_trigger ? (
+                    <img
                       key={zap.id}
-                      src={zap?.trigger?.available_trigger.image}
+                      src={zap.trigger.available_trigger.image}
                       alt=""
                       className="h-10"
                     />
+                  ) : null}
                     {
-                      zap.actions.map(action => (
+                      zap.actions.map((action) => (
                         <img
-                      key={zap.id}
+                      key={action.id}
                       src={action.available_action.image}
                       alt=""
                       className="h-10"

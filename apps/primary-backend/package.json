@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "up": "npm --workspace @repo/db run db:migrate",
+    "db:seed": "tsx src/seeder/index.ts"
   },
   "keywords": [],
   "author": "",

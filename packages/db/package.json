@@ -12,7 +12,12 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -b -v"
+    "build": "tsc -b -v",
+    "db:create": "sequelize-cli db:create",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:drop": "sequelize-cli db:drop",
+    "db:migration:create": "sequelize-cli migration:generate --name"
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, Default, ForeignKey, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { AutoIncrement, BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, PrimaryKey, Table } from "sequelize-typescript";
 import { User } from "./user.model";
 import { ZapRun } from "./zap-run.model";
 import { Trigger } from "./trigger.model";
@@ -6,14 +6,14 @@ import { Action } from "./action.model";
 
 @Table
 export class Zap extends Model {
-    @Default(DataType.UUIDV4)
+    @AutoIncrement
     @PrimaryKey
-    @Column
-    id!: string
+    @Column(DataType.INTEGER)
+    id!: number
 
     @Column
     @ForeignKey(()=> User)
-    user_id!: string
+    user_id!: number
 
     @BelongsTo(()=> User) 
     user!: User
