@@ -6,7 +6,13 @@ import LinkButton from "../button/LinkButton";
 import PrimaryButton from "../button/PrimaryButton";
 import { useRouter } from "next/navigation";
 
-const Appbar = ({ page = 'home', isLoggedIn, onClickLogin }: { page?: string, isLoggedIn?: boolean, onClickLogin: ()=> void}) => {
+type AppbarProps = {
+  page?: string;
+  isLoggedIn?: boolean;
+  onClickLogin?: () => void;
+};
+
+const Appbar = ({ page = 'home', isLoggedIn, onClickLogin }: AppbarProps) => {
   const router = useRouter()
   return (
     <div className="flex flex-row justify-between bg-grey-600 sticky m-auto w-10/11 ">
@@ -23,7 +29,7 @@ const Appbar = ({ page = 'home', isLoggedIn, onClickLogin }: { page?: string, is
 
       <div>
         <LinkButton text="contact sales" onClick={() => router.push('/zaps')} />
-        <LinkButton text="Login" onClick={()=>{onClickLogin(); console.log('ciciked login')}} />
+        <LinkButton text="Login" onClick={() => onClickLogin ? onClickLogin() : router.push('/login')} />
         <PrimaryButton text="signup" />
       </div>
     </div>

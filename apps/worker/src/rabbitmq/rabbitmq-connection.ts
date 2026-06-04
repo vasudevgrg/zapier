@@ -18,7 +18,6 @@ export class RabbitMQConnection {
   }
 
   async createChannel() {
-    console.log(this.connection)
     if (!this.connection) {
       throw new Error("RabbitMQ connection has not been created");
     }
@@ -47,7 +46,6 @@ export class RabbitMQConnection {
     if (!this.channel) {
       throw new Error("RabbitMQ channel has not been created");
     }
-    console.log(this.channel);
     await this.channel.assertExchange(this.config.exchange_name, this.config.exchange_type, {durable: false});
     await this.channel.bindQueue(this.config.queue, this.config.exchange_name, this.config.secret);
 

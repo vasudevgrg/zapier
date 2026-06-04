@@ -10,10 +10,15 @@ export default function Home() {
   const user = useAtomValue(userAtom);
   return (
     <div>
-        <Appbar isLoggedIn={user.logged_in} onClickLogin={()=> signIn()}/>
-        <div className="flex w-3/4 mx-auto border-x border-[#eee]">
-          <Hero />
-        </div>
+      <Appbar
+        isLoggedIn={user.logged_in}
+        onClickLogin={() => signIn()}
+      />
+      <div className="flex w-3/4 mx-auto border-x border-[#eee]">
+        <Hero />
+      </div>
     </div>
   );
 }
+
+

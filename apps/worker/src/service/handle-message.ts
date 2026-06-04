@@ -7,6 +7,7 @@ import {
   ZapRun,
   type OutboxMessage,
 } from "@repo/db";
+import { sendMail } from "../libs/nodemailer.js";
 
 // function parseMessage(text, values) {
 //   //text: we are sending {comment.amount} to {comment.email}
@@ -110,8 +111,8 @@ export async function handleMessage(message: OutboxMessage) {
 
   console.log(zapRun);
 
-  if(zapRun?.status=='pending') {
-    zapRun.markAsRunning()
+  if (zapRun?.status == "pending") {
+    zapRun.markAsRunning();
     await zapRun.save();
   }
 
@@ -119,9 +120,23 @@ export async function handleMessage(message: OutboxMessage) {
 
   const action = zapRun?.zap.actions[zapRun.current_action];
 
-  if(action.name=='mail') {
+  if (action?.available_action.name == "mail") {
+    const address = action.metadata.to;
+    const body = action.metadata.body;
+
+
+    await sendMail(parseMessage(address as string, zapRun?.meta_data), parseMessage(body as string, zapRun?.meta_data));
+  }
+
+  if(action?.available_action.name == "google-sheets") {
     
   }
 
-  
+  zapRun?.incrementActionOrder();
+  if(zapRun?.current_action== zapRun?.zap.actions.length) {
+    zapRun?.markAsCOmpleted();
+  }
+
+  zapRun?.save();
+
 }

@@ -8,6 +8,7 @@ import Appbar from "../../../components/Appbar/Appbar";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -61,7 +62,7 @@ export default function SignUp() {
           </div>
         </div>
         <div className="border w-2/5 p-8 justify-center items-center">
-          <SignUpGoogle text="Sign Up with Google" />
+          <SignUpGoogle text="Sign Up with Google" onClick={()=> signUp('google')}/>
           <div className="flex justify-center items-center">
             <hr className="flex-1 h-[2px] bg-gray-400 border-none" />
 

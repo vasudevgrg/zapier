@@ -5,6 +5,7 @@ import Input from "../../../components/signUp/Input";
 import PrimaryButton from "../../../components/button/PrimaryButton";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ const Login = () => {
         </button>
     </div>
     <div className=" border p-5">
-         <SignUpGoogle text="Sign Up with Google" />
+         <SignUpGoogle text="Sign Up with Google" onClick={()=> signIn('google')}/>
           <div className="flex justify-center items-center">
             <hr className="flex-1 h-[2px] bg-gray-400 border-none" />
 
